@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
@@ -126,6 +128,15 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
         btn_xemkho.setOnClickListener(this);
     }
 
+    public byte[] ImageViewToByte(ImageView imageView) {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return bytes;
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -146,6 +157,41 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
                 break;
 
             case R.id.btn_them:
+                String mahdnhap = mahd_add.getText().toString();
+                String tensp = tensp_add.getText().toString();
+                String gianhap = giasp_add.getText().toString();
+                String soluong = soluongsp_add.getText().toString();
+                String ngaynhap = ngaynhapsp_add.getText().toString();
+                byte[] anhsp = ImageViewToByte(iv_anhsp);
+
+                if (mahdnhap.equals("") || tensp.equals("") || gianhap.equals("") || soluong.equals("") || ngaynhap.equals("")) {
+                    Toast.makeText(NhapGiay.this, "Vui lòng điền tất cả thông tin", Toast.LENGTH_LONG).show();
+                } else {
+                    Integer giaNhap = Integer.parseInt(gianhap);
+                    Integer soLuong = Integer.parseInt(soluong);
+                    Boolean checkTenSP = hrdbHelper.checkTenSP(tensp);
+                    if (checkTenSP == false) {
+                        hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
+                        Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
+                    } else {
+                        hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
+                        Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
+                        Boolean checkIdNhapHang = hrdbHelper.checkIdNhapHang(mahdnhap);
+                        if (checkIdNhapHang == false) {
+                            hrdbHelper.InsertDonNhapHang(mahdnhap, ngaynhap);
+                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                            Toast.makeText(this, "Nhập hàng thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(NhapGiay.this, KhoHang.class);
+                            startActivity(intent);
+                        } else {
+                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                            Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(NhapGiay.this, KhoHang.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+
                 break;
 
             default:
