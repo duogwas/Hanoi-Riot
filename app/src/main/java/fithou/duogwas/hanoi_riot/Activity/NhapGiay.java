@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -38,6 +39,7 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
     TextInputEditText mahd_add, tensp_add, giasp_add, soluongsp_add, ngaynhapsp_add;
     ActivityResultLauncher<Intent> activityResultLauncher, activityResultLauncher1;
     HRDBHelper hrdbHelper;
+    Integer sl = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,21 +195,31 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
                             hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
                             Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
                         } else {
-                            hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
-                            Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
-                            Boolean checkIdNhapHang = hrdbHelper.checkIdNhapHang(mahdnhap);
-                            if (checkIdNhapHang == false) {
-                                hrdbHelper.InsertDonNhapHang(mahdnhap, ngaynhap);
-                                hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
-                                Toast.makeText(this, "Nhập hàng thành công", Toast.LENGTH_LONG).show();
-                                intent = new Intent(NhapGiay.this, KhoHang.class);
-                                startActivity(intent);
-                            } else {
-                                hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
-                                Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
-                                intent = new Intent(NhapGiay.this, KhoHang.class);
-                                startActivity(intent);
+                            Cursor cursor = hrdbHelper.getWritableDatabase().rawQuery("SELECT * FROM SanPham WHERE tenSP =?", new String[]{tensp});
+                            if (cursor != null) {
+                                if (cursor.moveToFirst()) {
+                                    sl = cursor.getInt(2);
+                                }
+                                cursor.close();
                             }
+                            Integer tongsl = soLuong + sl;
+                            hrdbHelper.getWritableDatabase().execSQL("UPDATE SanPham SET slSp =? WHERE tenSP=?", new String[]{tongsl + "", tensp});
+                            Toast.makeText(this, "Thêm hàng thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(NhapGiay.this, KhoHang.class);
+                            startActivity(intent);
+                        }
+                        Boolean checkIdNhapHang = hrdbHelper.checkIdNhapHang(mahdnhap);
+                        if (checkIdNhapHang == false) {
+                            hrdbHelper.InsertDonNhapHang(mahdnhap, ngaynhap);
+                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                            Toast.makeText(this, "Nhập hàng thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(NhapGiay.this, KhoHang.class);
+                            startActivity(intent);
+                        } else {
+                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                            Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(NhapGiay.this, KhoHang.class);
+                            startActivity(intent);
                         }
                     }
                 }
