@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
+
 import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
 import fithou.duogwas.hanoi_riot.R;
 
@@ -28,7 +31,7 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
     ImageButton img_btnHome;
     AppCompatButton btn_chupanh, btn_chonanh, btn_huy, btn_them, btn_xemkho;
     TextInputEditText mahd_add, tensp_add, giasp_add, soluongsp_add, ngaynhapsp_add;
-    ActivityResultLauncher<Intent> activityResultLauncher;
+    ActivityResultLauncher<Intent> activityResultLauncher, activityResultLauncher1;
     HRDBHelper hrdbHelper;
 
     @Override
@@ -65,6 +68,38 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
                     }
                 });
 
+        //nút chọn ảnh
+        btn_chonanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chonAnh = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                if (chonAnh.resolveActivity(getPackageManager()) != null) {
+                    activityResultLauncher1.launch(chonAnh);
+                } else {
+                    Toast.makeText(NhapGiay.this, "lỗi rồi", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        activityResultLauncher1 = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                            // There are no request codes
+                            //Intent data = result.getData();
+                            Intent data = result.getData();
+                            Uri imageUri = data.getData();
+                            Bitmap bitmap = null;
+                            try {
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            iv_anhsp.setImageBitmap(bitmap);
+                        }
+                    }
+                });
     }
 
     private void AnhXa() {
