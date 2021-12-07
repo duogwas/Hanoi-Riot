@@ -24,6 +24,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
 import fithou.duogwas.hanoi_riot.R;
@@ -137,6 +140,11 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
         return bytes;
     }
 
+    public Date StringToDate(String date) throws ParseException {
+        Date StringtoDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+        return StringtoDate;
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -167,31 +175,42 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
                 if (mahdnhap.equals("") || tensp.equals("") || gianhap.equals("") || soluong.equals("") || ngaynhap.equals("")) {
                     Toast.makeText(NhapGiay.this, "Vui lòng điền tất cả thông tin", Toast.LENGTH_LONG).show();
                 } else {
-                    Integer giaNhap = Integer.parseInt(gianhap);
-                    Integer soLuong = Integer.parseInt(soluong);
-                    Boolean checkTenSP = hrdbHelper.checkTenSP(tensp);
-                    if (checkTenSP == false) {
-                        hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
-                        Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
+                    Date dateinput = null;
+                    try {
+                        dateinput = StringToDate(ngaynhap);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Date datenow = java.util.Calendar.getInstance().getTime();
+                    int result = dateinput.compareTo(datenow);
+                    if (result > 0) {
+                        Toast.makeText(this, "Ngày nhập lớn hơn ngày hiện tại", Toast.LENGTH_LONG).show();
                     } else {
-                        hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
-                        Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
-                        Boolean checkIdNhapHang = hrdbHelper.checkIdNhapHang(mahdnhap);
-                        if (checkIdNhapHang == false) {
-                            hrdbHelper.InsertDonNhapHang(mahdnhap, ngaynhap);
-                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
-                            Toast.makeText(this, "Nhập hàng thành công", Toast.LENGTH_LONG).show();
-                            intent = new Intent(NhapGiay.this, KhoHang.class);
-                            startActivity(intent);
+                        Integer giaNhap = Integer.parseInt(gianhap);
+                        Integer soLuong = Integer.parseInt(soluong);
+                        Boolean checkTenSP = hrdbHelper.checkTenSP(tensp);
+                        if (checkTenSP == false) {
+                            hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
+                            Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
                         } else {
-                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
-                            Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
-                            intent = new Intent(NhapGiay.this, KhoHang.class);
-                            startActivity(intent);
+                            hrdbHelper.InsertSanPham(tensp, soLuong, anhsp);
+                            Toast.makeText(this, "Thêm thành công", Toast.LENGTH_LONG).show();
+                            Boolean checkIdNhapHang = hrdbHelper.checkIdNhapHang(mahdnhap);
+                            if (checkIdNhapHang == false) {
+                                hrdbHelper.InsertDonNhapHang(mahdnhap, ngaynhap);
+                                hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                                Toast.makeText(this, "Nhập hàng thành công", Toast.LENGTH_LONG).show();
+                                intent = new Intent(NhapGiay.this, KhoHang.class);
+                                startActivity(intent);
+                            } else {
+                                hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                                Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
+                                intent = new Intent(NhapGiay.this, KhoHang.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 }
-
                 break;
 
             default:
