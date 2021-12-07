@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -25,6 +26,9 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
 import fithou.duogwas.hanoi_riot.R;
@@ -36,6 +40,7 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
     ImageButton img_btnHome;
     ActivityResultLauncher<Intent> activityResultLauncher, activityResultLauncher1;
     HRDBHelper hrdbHelper;
+    Integer sl = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +144,11 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
         return bytes;
     }
 
+    public Date StringToDate(String date) throws ParseException {
+        Date StringtoDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+        return StringtoDate;
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -168,24 +178,49 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
                 if (mahdxuat.equals("") || tenspxuat.equals("") || giaxuat.equals("") || soluongxuat.equals("") || ngayxuat.equals("")) {
                     Toast.makeText(XuatGiay.this, "Vui lòng điền tất cả thông tin", Toast.LENGTH_LONG).show();
                 } else {
-                    Boolean checkTenSP = hrdbHelper.checkTenSP(tenspxuat);
-                    if (checkTenSP == false) {
-                        Toast.makeText(XuatGiay.this, "Sản phẩm không tồn tại", Toast.LENGTH_LONG).show();
+                    Date dateinput = null;
+                    try {
+                        dateinput = StringToDate(ngayxuat);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Date datenow = java.util.Calendar.getInstance().getTime();
+                    int result = dateinput.compareTo(datenow);
+                    if (result > 0) {
+                        Toast.makeText(this, "Ngày nhập lớn hơn ngày hiện tại", Toast.LENGTH_LONG).show();
                     } else {
                         Integer giaXuat = Integer.parseInt(giaxuat);
                         Integer soLuongXuat = Integer.parseInt(soluongxuat);
-                        Boolean checkIdXuat = hrdbHelper.checkIdXuatHang(mahdxuat);
-                        if (checkIdXuat == false) {
-                            hrdbHelper.InsertDonXuatHang(mahdxuat, ngayxuat);
-                            hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
-                            Toast.makeText(this, "Xuất hàng thành công", Toast.LENGTH_LONG).show();
-                            intent = new Intent(XuatGiay.this, XuatGiay.class);
-                            startActivity(intent);
+                        Boolean checkTenSP = hrdbHelper.checkTenSP(tenspxuat);
+                        if (checkTenSP == false) {
+                            Toast.makeText(XuatGiay.this, "Sản phẩm không tồn tại", Toast.LENGTH_LONG).show();
                         } else {
-                            hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
-                            Toast.makeText(this, "Thành công", Toast.LENGTH_LONG).show();
-                            intent = new Intent(XuatGiay.this, XuatGiay.class);
-                            startActivity(intent);
+                            Cursor cursor = hrdbHelper.getWritableDatabase().rawQuery("SELECT * FROM SanPham WHERE tenSP =?", new String[]{tenspxuat});
+                            if (cursor != null) {
+                                if (cursor.moveToFirst()) {
+                                    sl = cursor.getInt(2);
+                                }
+                                cursor.close();
+                            }
+                            if (sl < soLuongXuat) {
+                                Toast.makeText(XuatGiay.this, "Số lượng sản phẩm không đủ để xuất", Toast.LENGTH_LONG).show();
+                            } else {
+                                Integer tongsl = sl - soLuongXuat;
+                                hrdbHelper.getWritableDatabase().execSQL("UPDATE SanPham SET slSp =? WHERE tenSP=?", new String[]{tongsl + "", tenspxuat});
+                                Boolean checkIdXuat = hrdbHelper.checkIdXuatHang(mahdxuat);
+                                if (checkIdXuat == false) {
+                                    hrdbHelper.InsertDonXuatHang(mahdxuat, ngayxuat);
+                                    hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
+                                    Toast.makeText(this, "Xuất hàng thành công", Toast.LENGTH_LONG).show();
+                                    intent = new Intent(XuatGiay.this, XuatGiay.class);
+                                    startActivity(intent);
+                                } else {
+                                    hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
+                                    Toast.makeText(this, "Thành công", Toast.LENGTH_LONG).show();
+                                    intent = new Intent(XuatGiay.this, XuatGiay.class);
+                                    startActivity(intent);
+                                }
+                            }
                         }
                     }
                 }
