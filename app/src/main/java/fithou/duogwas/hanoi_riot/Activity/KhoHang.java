@@ -30,6 +30,7 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener {
     HRDBHelper hrdbHelper;
     SearchView searchView;
     ListSanPhamAdapter listSanPhamAdapter;
+    Integer result = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,12 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void DemSp() {
+        Cursor count = hrdbHelper.SelectData("SELECT COUNT(idSP) FROM SanPham");
+        while (count.moveToNext()) {
+            result = count.getInt(0);
+        }
+        String dem = Integer.toString(result);
+        tv_tongslsp.setText(dem);
     }
 
     private void AnhXa() {
