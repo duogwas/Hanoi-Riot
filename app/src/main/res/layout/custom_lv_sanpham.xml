@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_anhgiay"
+        android:layout_width="135dp"
+        android:layout_height="144dp"
+        tools:srcCompat="@drawable/logo_index" />
+
+    <TextView
+        android:id="@+id/tv_tengiay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/iv_anhgiay"
+        android:fontFamily="@font/bangers_medium"
+        android:gravity="center"
+        android:text="Tên giày"
+        android:textColor="#66BB6A"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_soluong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tengiay"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/iv_anhgiay"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Số lượng:"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_slsp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tengiay"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/tv_soluong"
+        android:fontFamily="@font/bangers_medium"
+        android:text="50"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sua"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_slsp"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@id/iv_anhgiay"
+        android:background="@drawable/bg_orange_corner_10"
+        android:gravity="center"
+        android:text="Chi tiết"
+        android:textSize="20sp" />
+
+</RelativeLayout>
