@@ -1,15 +1,22 @@
 package fithou.duogwas.hanoi_riot.Activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -31,6 +38,33 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_nhap_giay);
         AnhXa();
         setOnClick();
+
+        //nút chụp ảnh
+        btn_chupanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mayAnh = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (mayAnh.resolveActivity(getPackageManager()) != null) {
+                    activityResultLauncher.launch(mayAnh);
+                } else {
+                    Toast.makeText(NhapGiay.this, "lỗi rồi", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                            // There are no request codes
+                            Intent data = result.getData();
+                            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                            iv_anhsp.setImageBitmap(bitmap);
+                        }
+                    }
+                });
+
     }
 
     private void AnhXa() {
