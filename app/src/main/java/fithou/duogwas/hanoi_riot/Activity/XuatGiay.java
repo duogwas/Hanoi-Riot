@@ -41,6 +41,7 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
     ActivityResultLauncher<Intent> activityResultLauncher, activityResultLauncher1;
     HRDBHelper hrdbHelper;
     Integer sl = 0;
+    Integer sl_cthd = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,10 +216,26 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
                                     intent = new Intent(XuatGiay.this, XuatGiay.class);
                                     startActivity(intent);
                                 } else {
-                                    hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
-                                    Toast.makeText(this, "Thành công", Toast.LENGTH_LONG).show();
-                                    intent = new Intent(XuatGiay.this, XuatGiay.class);
-                                    startActivity(intent);
+                                    Boolean checkSanPhamChiTietXuat = hrdbHelper.checkSanPham_ChiTietDonXuat(mahdxuat, tenspxuat);
+                                    if (checkSanPhamChiTietXuat == true) {
+                                        Cursor cursorSp = hrdbHelper.getWritableDatabase().rawQuery("SELECT * FROM ChiTietXuatHang WHERE tenSP =? and idXuat=?", new String[]{tenspxuat, mahdxuat});
+                                        if (cursorSp != null) {
+                                            if (cursorSp.moveToFirst()) {
+                                                sl_cthd = cursor.getInt(4);
+                                            }
+                                            cursor.close();
+                                        }
+                                        Integer tongsl_cthd = soLuongXuat + sl_cthd;
+                                        hrdbHelper.getWritableDatabase().execSQL("UPDATE ChiTietXuatHang SET slXuat =? WHERE tenSP=? and idXuat=?", new String[]{tongsl_cthd + "", tenspxuat, mahdxuat});
+                                        Toast.makeText(this, "Thêm hàng thành công", Toast.LENGTH_LONG).show();
+                                        intent = new Intent(XuatGiay.this, KhoHang.class);
+                                        startActivity(intent);
+                                    } else {
+                                        hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
+                                        Toast.makeText(this, "Thành công", Toast.LENGTH_LONG).show();
+                                        intent = new Intent(XuatGiay.this, XuatGiay.class);
+                                        startActivity(intent);
+                                    }
                                 }
                             }
                         }

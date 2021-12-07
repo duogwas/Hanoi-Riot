@@ -195,4 +195,14 @@ public class HRDBHelper extends SQLiteOpenHelper {
         sqLiteStatement.bindDouble(5, slXuat);
         sqLiteStatement.executeInsert();
     }
+
+    //check sản phẩm trong chi tiết hóa đơn theo mã hđ và tên sp
+    public boolean checkSanPham_ChiTietDonXuat(String idXuat, String tenSp) {
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        Cursor cursor = MyDB.rawQuery("Select * from ChiTietXuatHang where idXuat = ? and tenSp=?", new String[]{idXuat,tenSp});
+        if (cursor.getCount() > 0)
+            return true; //đã có id đó trong bảng
+        else
+            return false; //chưa có id đó trong bảng
+    }
 }
