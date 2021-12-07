@@ -21,7 +21,7 @@ import fithou.duogwas.hanoi_riot.Class.SanPham;
 import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
 import fithou.duogwas.hanoi_riot.R;
 
-public class KhoHang extends AppCompatActivity implements View.OnClickListener {
+public class KhoHang extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
     TextView tv_tongslsp;
     ListView lv_khohang;
     ImageButton img_btnHome;
@@ -78,6 +78,7 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener {
     private void setOnClick() {
         img_btnHome.setOnClickListener(this);
         fabBtnAddSp.setOnClickListener(this);
+        searchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -97,5 +98,23 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        ArrayList<SanPham> splist = new ArrayList<>();
+        for (SanPham sanPham : sanpham) {
+            if (sanPham.TenSp.toLowerCase().contains(newText.toLowerCase())) {
+                splist.add(sanPham);
+            }
+        }
+        listSanPhamAdapter = new ListSanPhamAdapter(KhoHang.this, R.layout.custom_lv_sanpham, splist);
+        lv_khohang.setAdapter(listSanPhamAdapter);
+        return true;
     }
 }
