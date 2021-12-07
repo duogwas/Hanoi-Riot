@@ -27,6 +27,11 @@ public class DangNhap extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_dang_nhap);
         AnhXa();
         setOnClick();
+
+        userlog = getIntent().getStringExtra("userreg");
+        username_log.setText(userlog);
+        passlog = getIntent().getStringExtra("passreg");
+        pass_log.setText(passlog);
     }
 
     public void AnhXa() {
