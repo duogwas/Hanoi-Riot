@@ -51,7 +51,7 @@ public class HRDBHelper extends SQLiteOpenHelper {
         contentValues.put("username", username);
         contentValues.put("password", password);
         contentValues.put("phoneNumber", phoneNumber);
-        long result = MyDB.insert("user", "hack", contentValues);
+        long result = MyDB.insert("User", "hack", contentValues);
         if (result == -1)
             return false;
         else
@@ -61,7 +61,7 @@ public class HRDBHelper extends SQLiteOpenHelper {
     //check user đã tồn tại chưa
     public boolean checkUser(String username) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("Select * from user where username = ?", new String[]{username});
+        Cursor cursor = MyDB.rawQuery("Select * from User where username = ?", new String[]{username});
         if (cursor.getCount() > 0)
             return true;
         else
@@ -71,7 +71,7 @@ public class HRDBHelper extends SQLiteOpenHelper {
     //check sdt đã được sd chưa
     public boolean checkPhoneNumber(String phoneNumber) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("Select * from user where phoneNumber = ?", new String[]{phoneNumber});
+        Cursor cursor = MyDB.rawQuery("Select * from User where phoneNumber = ?", new String[]{phoneNumber});
         if (cursor.getCount() > 0)
             return true;
         else
@@ -81,7 +81,7 @@ public class HRDBHelper extends SQLiteOpenHelper {
     //check tài khoản mật khẩu
     public boolean checkUserPassword(String username, String password) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("Select * from user where username = ? and password = ?", new String[]{username, password});
+        Cursor cursor = MyDB.rawQuery("Select * from User where username = ? and password = ?", new String[]{username, password});
         if (cursor.getCount() > 0)
             return true;
         else

@@ -221,13 +221,13 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
                                         Cursor cursorSp = hrdbHelper.getWritableDatabase().rawQuery("SELECT * FROM ChiTietXuatHang WHERE tenSP =? and idXuat=?", new String[]{tenspxuat, mahdxuat});
                                         if (cursorSp != null) {
                                             if (cursorSp.moveToFirst()) {
-                                                sl_cthd = cursor.getInt(4);
+                                                sl_cthd = cursorSp.getInt(4);
                                             }
-                                            cursor.close();
+                                            cursorSp.close();
                                         }
                                         Integer tongsl_cthd = soLuongXuat + sl_cthd;
                                         hrdbHelper.getWritableDatabase().execSQL("UPDATE ChiTietXuatHang SET slXuat =? WHERE tenSP=? and idXuat=?", new String[]{tongsl_cthd + "", tenspxuat, mahdxuat});
-                                        Toast.makeText(this, "Thêm hàng thành công", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(this, "Xuất hàng thành công", Toast.LENGTH_LONG).show();
                                         intent = new Intent(XuatGiay.this, KhoHang.class);
                                         startActivity(intent);
                                     } else {
