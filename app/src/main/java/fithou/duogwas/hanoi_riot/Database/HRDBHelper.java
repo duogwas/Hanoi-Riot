@@ -24,6 +24,8 @@ public class HRDBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists User");
     }
 
+    //booleanCheck return true: đã có dl đó trong bảng, return false: chưa có dl đó trong bảng
+
     //1. Bảng User
     public boolean insertUser (String username, String password, String phoneNumber){
         SQLiteDatabase MyDB = this.getWritableDatabase();
