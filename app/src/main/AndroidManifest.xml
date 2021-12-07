@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HanoiRiot">
         <activity
+            android:name=".Activity.DangNhap"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SplashScreen"
             android:exported="true">
             <intent-filter>
