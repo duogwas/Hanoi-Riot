@@ -35,13 +35,7 @@ public class HRDBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists ChiTietXuatHang");
     }
 
-    //insert, update, delete
-    public void QueryData(String sql) {
-        SQLiteDatabase MyDB = this.getWritableDatabase();
-        MyDB.execSQL(sql);
-    }
-
-    //select
+    //select * from table
     public Cursor SelectData(String sql) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         return MyDB.rawQuery(sql, null);
