@@ -17,11 +17,21 @@ public class HRDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
         MyDB.execSQL("create Table User(username TEXT primary key, password TEXT, phoneNumber TEXT)");
+        MyDB.execSQL("create Table SanPham(idSP INTEGER primary key autoincrement, tenSp TEXT, slSP INTEGER, anhSP BLOB)");
+        MyDB.execSQL("create Table DonNhapHang(idNhap TEXT primary key, ngayNhap TEXT)");
+        MyDB.execSQL("create Table ChiTietNhapHang(idNhap TEXT, tenSp TEXT, anhSP BLOB, giaNhap INTEGER,slNhap INTERGER,foreign key(idNhap) references DonNhapHang(idNhap), foreign key(tenSp) references SanPham(tenSp))");
+        MyDB.execSQL("create Table DonXuatHang(idXuat TEXT primary key, ngayXuat TEXT)");
+        MyDB.execSQL("create Table ChiTietXuatHang(idXuat TEXT, tenSp TEXT, anhSP BLOB, giaXuat INTEGER, slXuat INTERGER, foreign key(idXuat) references DonXuatHang(idXuat), foreign key(tenSp) references SanPham(tenSp))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase MyDB, int oldVersion, int newVersion) {
         MyDB.execSQL("drop Table if exists User");
+        MyDB.execSQL("drop Table if exists SanPham");
+        MyDB.execSQL("drop Table if exists DonNhapHang");
+        MyDB.execSQL("drop Table if exists ChiTietNhapHang");
+        MyDB.execSQL("drop Table if exists DonXuatHang");
+        MyDB.execSQL("drop Table if exists ChiTietXuatHang");
     }
 
     //booleanCheck return true: đã có dl đó trong bảng, return false: chưa có dl đó trong bảng
