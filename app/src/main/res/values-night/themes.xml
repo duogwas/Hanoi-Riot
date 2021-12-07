@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ThemeOverlay.search" parent="Theme.HanoiRiot">
+        <!-- Text color -->
+        <item name="android:editTextColor">#fff</item>
+        <!-- Hint text color -->
+        <item name="android:textColorHint">#fff</item>
+    </style>
+
 </resources>
