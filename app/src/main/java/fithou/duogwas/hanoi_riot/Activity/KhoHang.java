@@ -22,6 +22,7 @@ import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
 import fithou.duogwas.hanoi_riot.R;
 
 public class KhoHang extends AppCompatActivity implements View.OnClickListener, SearchView.OnQueryTextListener {
+    AppCompatButton btn_sort;
     TextView tv_tongslsp;
     ListView lv_khohang;
     ImageButton img_btnHome;
@@ -73,12 +74,30 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener, 
         lv_khohang = findViewById(R.id.lv_khohang);
         hrdbHelper = new HRDBHelper(this);
         searchView = findViewById(R.id.search_view);
+        btn_sort = findViewById(R.id.btn_sort);
     }
 
     private void setOnClick() {
         img_btnHome.setOnClickListener(this);
         fabBtnAddSp.setOnClickListener(this);
         searchView.setOnQueryTextListener(this);
+        btn_sort.setOnClickListener(this);
+    }
+
+    private void SapXep() {
+        ArrayList<SanPham> splist = new ArrayList<>();
+        Cursor sp = hrdbHelper.SelectData("SELECT * FROM SanPham ORDER BY slSP ASC");
+        //tăng dần theo sl, giảm dần thì thay bằng DESC
+        while (sp.moveToNext()) {
+            splist.add(new SanPham(
+                    sp.getInt(0),
+                    sp.getString(1),
+                    sp.getInt(2),
+                    sp.getBlob(3)
+            ));
+        }
+        listSanPhamAdapter = new ListSanPhamAdapter(KhoHang.this, R.layout.custom_lv_sanpham, splist);
+        lv_khohang.setAdapter(listSanPhamAdapter);
     }
 
     @Override
@@ -93,6 +112,10 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener, 
             case R.id.fabBtnAddSp:
                 intent = new Intent(KhoHang.this, NhapGiay.class);
                 startActivity(intent);
+                break;
+
+            case R.id.btn_sort:
+                SapXep();
                 break;
 
             default:
