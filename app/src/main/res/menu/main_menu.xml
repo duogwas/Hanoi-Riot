@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_nav_home"
+            android:title="Trang chủ" />
+
+        <item
+            android:id="@+id/nav_khohang"
+            android:icon="@drawable/ic_nav_khohang"
+            android:title="Kho hàng" />
+
+    </group>
+
+    <item android:title="Tài khoản">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_login"
+                    android:icon="@drawable/ic_nav_login"
+                    android:title="Đăng nhập" />
+
+                <item
+                    android:id="@+id/nav_register"
+                    android:icon="@drawable/ic_nav_register"
+                    android:title="Đăng ký" />
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_nav_logout"
+                    android:title="Đăng xuất" />
+            </group>
+        </menu>
+    </item>
+
+
+    <group android:checkableBehavior="single">
+        <item android:title="Ứng dụng">
+            <menu>
+                <item
+                    android:id="@+id/nav_thongtin"
+                    android:icon="@drawable/ic_nav_thongtin"
+                    android:title="Thông tin ứng dụng" />
+
+                <item
+                    android:id="@+id/nav_hotro"
+                    android:icon="@drawable/ic_nav_hotro"
+                    android:title="Hỗ trợ" />
+            </menu>
+        </item>
+    </group>
+
+
+</menu>
