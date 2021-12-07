@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import fithou.duogwas.hanoi_riot.Database.HRDBHelper;
@@ -128,6 +130,15 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
         img_btnHome.setOnClickListener(this);
     }
 
+    public byte[] ImageViewToByte(ImageView imageView) {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return bytes;
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -148,6 +159,36 @@ public class XuatGiay extends AppCompatActivity implements View.OnClickListener 
                 break;
 
             case R.id.btn_xuat:
+                String mahdxuat = mahd_xuat.getText().toString();
+                String tenspxuat = tensp_xuat.getText().toString();
+                String giaxuat = giasp_xuat.getText().toString();
+                String soluongxuat = soluongsp_xuat.getText().toString();
+                String ngayxuat = ngayxuatsp_xuat.getText().toString();
+                byte[] anhsp = ImageViewToByte(iv_anhsp);
+                if (mahdxuat.equals("") || tenspxuat.equals("") || giaxuat.equals("") || soluongxuat.equals("") || ngayxuat.equals("")) {
+                    Toast.makeText(XuatGiay.this, "Vui lòng điền tất cả thông tin", Toast.LENGTH_LONG).show();
+                } else {
+                    Boolean checkTenSP = hrdbHelper.checkTenSP(tenspxuat);
+                    if (checkTenSP == false) {
+                        Toast.makeText(XuatGiay.this, "Sản phẩm không tồn tại", Toast.LENGTH_LONG).show();
+                    } else {
+                        Integer giaXuat = Integer.parseInt(giaxuat);
+                        Integer soLuongXuat = Integer.parseInt(soluongxuat);
+                        Boolean checkIdXuat = hrdbHelper.checkIdXuatHang(mahdxuat);
+                        if (checkIdXuat == false) {
+                            hrdbHelper.InsertDonXuatHang(mahdxuat, ngayxuat);
+                            hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
+                            Toast.makeText(this, "Xuất hàng thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(XuatGiay.this, XuatGiay.class);
+                            startActivity(intent);
+                        } else {
+                            hrdbHelper.InsertChiTietXuatHang(mahdxuat, tenspxuat, anhsp, giaXuat, soLuongXuat);
+                            Toast.makeText(this, "Thành công", Toast.LENGTH_LONG).show();
+                            intent = new Intent(XuatGiay.this, XuatGiay.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
                 break;
 
             default:
