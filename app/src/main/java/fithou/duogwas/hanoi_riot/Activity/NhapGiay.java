@@ -40,6 +40,7 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
     ActivityResultLauncher<Intent> activityResultLauncher, activityResultLauncher1;
     HRDBHelper hrdbHelper;
     Integer sl = 0;
+    Integer sl_cthd = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,10 +217,26 @@ public class NhapGiay extends AppCompatActivity implements View.OnClickListener 
                             intent = new Intent(NhapGiay.this, KhoHang.class);
                             startActivity(intent);
                         } else {
-                            hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
-                            Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
-                            intent = new Intent(NhapGiay.this, KhoHang.class);
-                            startActivity(intent);
+                            Boolean checkSanPhamChiTietNhap = hrdbHelper.checkSanPham_ChiTietDonNhap(mahdnhap, tensp);
+                            if (checkSanPhamChiTietNhap == true) {
+                                Cursor cursor = hrdbHelper.getWritableDatabase().rawQuery("SELECT * FROM ChiTietNhapHang WHERE tenSP =? and idNhap=?", new String[]{tensp, mahdnhap});
+                                if (cursor != null) {
+                                    if (cursor.moveToFirst()) {
+                                        sl_cthd = cursor.getInt(4);
+                                    }
+                                    cursor.close();
+                                }
+                                Integer tongsl_cthd = soLuong + sl_cthd;
+                                hrdbHelper.getWritableDatabase().execSQL("UPDATE ChiTietNhapHang SET slNhap =? WHERE tenSP=? and idNhap=?", new String[]{tongsl_cthd + "", tensp, mahdnhap});
+                                Toast.makeText(this, "Thêm hàng thành công", Toast.LENGTH_LONG).show();
+                                intent = new Intent(NhapGiay.this, KhoHang.class);
+                                startActivity(intent);
+                            } else {
+                                hrdbHelper.InsertChiTietNhapHang(mahdnhap, tensp, anhsp, giaNhap, soLuong);
+                                Toast.makeText(this, "Nhập thành công", Toast.LENGTH_LONG).show();
+                                intent = new Intent(NhapGiay.this, KhoHang.class);
+                                startActivity(intent);
+                            }
                         }
                     }
                 }
