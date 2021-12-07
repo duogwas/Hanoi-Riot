@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -41,6 +42,17 @@ public class KhoHang extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void DocDuLieu() {
+        Cursor sp = hrdbHelper.SelectData("SELECT * FROM SanPham");
+        while (sp.moveToNext()) {
+            sanpham.add(new SanPham(
+                    sp.getInt(0),
+                    sp.getString(1),
+                    sp.getInt(2),
+                    sp.getBlob(3)
+            ));
+        }
+        listSanPhamAdapter = new ListSanPhamAdapter(KhoHang.this, R.layout.custom_lv_sanpham, sanpham);
+        lv_khohang.setAdapter(listSanPhamAdapter);
     }
 
     private void DemSp() {
