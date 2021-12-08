@@ -60,7 +60,7 @@ public class HoaDonNhapHang extends AppCompatActivity implements View.OnClickLis
         lv_hoadonnhap.setAdapter(listHoaDonNhapAdapter);
     }
 
-    public void AnhXa(){
+    public void AnhXa() {
         hoadon = new ArrayList<Hoa_Don>();
         lv_hoadonnhap = findViewById(R.id.lv_hoadonnhap);
         hrdbHelper = new HRDBHelper(this);
@@ -70,7 +70,7 @@ public class HoaDonNhapHang extends AppCompatActivity implements View.OnClickLis
         img_btnChange = findViewById(R.id.img_btnChange);
     }
 
-    public void setOnClick(){
+    public void setOnClick() {
         img_btnChange.setOnClickListener(this);
         img_btnHome.setOnClickListener(this);
         fabBtnAddhd.setOnClickListener(this);
@@ -133,9 +133,9 @@ public class HoaDonNhapHang extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         Intent intent;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.img_btnHome:
-                intent = new Intent(HoaDonNhapHang.this,MainActivity.class);
+                intent = new Intent(HoaDonNhapHang.this, MainActivity.class);
                 startActivity(intent);
                 break;
 
@@ -144,7 +144,7 @@ public class HoaDonNhapHang extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.fabBtnAddHd:
-                intent = new Intent(HoaDonNhapHang.this,NhapGiay.class);
+                intent = new Intent(HoaDonNhapHang.this, NhapGiay.class);
                 startActivity(intent);
                 break;
 
@@ -153,20 +153,64 @@ public class HoaDonNhapHang extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    public Date StringToDate(String date) throws ParseException {
+        Date StringtoDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+        return StringtoDate;
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        //query input form: dd//mm/yyyy-dd/mm/yyyy
+        ArrayList<Hoa_Don> hdlist = new ArrayList<>();
+        String dateinput1 = query.split("-")[0];
+        String dateinput2 = query.split("-")[1];
+
+        for (Hoa_Don hoa_don : hoadon) {
+            //ngày của hoá đơn
+            Date datehd = null;
+            try {
+                datehd = StringToDate(hoa_don.ngay);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //ngày start
+            Date datebefore = null;
+            try {
+                datebefore = StringToDate(dateinput1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //ngày end
+            Date dateafter = null;
+            try {
+                dateafter = StringToDate(dateinput2);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            int result1 = datebefore.compareTo(datehd);
+            int result2 = datehd.compareTo(dateafter);
+            //ngày start<ngày hd<ngày end
+            if (result1 < 0 && result2 < 0) {
+                hdlist.add(hoa_don);
+            }
+        }
+        listHoaDonNhapAdapter = new ListHoaDonNhapAdapter(this, R.layout.custom_lv_hoadonnhap, hdlist);
+        lv_hoadonnhap.setAdapter(listHoaDonNhapAdapter);
+        return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
         ArrayList<Hoa_Don> hdlist = new ArrayList<>();
-        for(Hoa_Don hoa_don  : hoadon){
-            if(hoa_don.ngay.toLowerCase().contains(newText.toLowerCase())){
+        for (Hoa_Don hoa_don : hoadon) {
+            if (hoa_don.ngay.toLowerCase().contains(newText.toLowerCase())) {
                 hdlist.add(hoa_don);
             }
         }
-        listHoaDonNhapAdapter = new ListHoaDonNhapAdapter(HoaDonNhapHang.this,R.layout.custom_lv_hoadonnhap,hdlist);
+        listHoaDonNhapAdapter = new ListHoaDonNhapAdapter(HoaDonNhapHang.this, R.layout.custom_lv_hoadonnhap, hdlist);
         lv_hoadonnhap.setAdapter(listHoaDonNhapAdapter);
         return true;
     }
