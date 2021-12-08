@@ -175,6 +175,57 @@ public class ChiTietSanPham extends AppCompatActivity implements View.OnClickLis
         hrdbHelper.getWritableDatabase().update("ChiTietXuatHang", contentValues, "tenSp = ?", new String[]{ten_chitiet});
     }
 
+    public void xoaSanPham() {
+        hrdbHelper.getWritableDatabase().delete("SanPham", "idSp = ?", new String[]{id + ""});
+    }
+
+    private void DialogXoa(int gravity) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog_xoa);
+        dialog.setCanceledOnTouchOutside(false);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttribute = window.getAttributes();
+        windowAttribute.gravity = gravity;
+        window.setAttributes(windowAttribute);
+
+        if (Gravity.CENTER == gravity) {
+            dialog.setCancelable(true);
+        } else {
+            dialog.setCancelable(false);
+        }
+
+        AppCompatButton btn_xoa, btn_khong;
+        btn_xoa = dialog.findViewById(R.id.btn_xoa);
+        btn_khong = dialog.findViewById(R.id.btn_khong);
+
+        btn_xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xoaSanPham();
+                Toast.makeText(ChiTietSanPham.this, "Xóa thành công", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ChiTietSanPham.this, KhoHang.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_khong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -191,6 +242,7 @@ public class ChiTietSanPham extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_xoa:
+                DialogXoa(Gravity.CENTER);
                 break;
 
             case R.id.img_btnHome:
