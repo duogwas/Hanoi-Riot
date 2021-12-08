@@ -13,6 +13,8 @@
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_hoa_don_nhap_hang.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_hoa_don_xuat_hang.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_kho_hang.xml" value="0.264" />
+        <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_lich_su_nhap_hang.xml" value="0.25416666666666665" />
+        <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_lich_su_xuat_hang.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_nhap_giay.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
@@ -24,6 +26,7 @@
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_chitiethoadon.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_hoadonnhap.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_hoadonxuat.xml" value="0.25416666666666665" />
+        <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_lichsu.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_sanpham.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/header_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/menu/main_menu.xml" value="0.25416666666666665" />

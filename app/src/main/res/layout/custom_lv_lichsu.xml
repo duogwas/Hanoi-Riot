@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Mã hóa đơn: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_mahd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv1"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Nhap01"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Giá: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_gia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mahd"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv2"
+        android:fontFamily="@font/bangers_medium"
+        android:text="50000"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_vnd1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mahd"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv_gia"
+        android:fontFamily="@font/bangers_medium"
+        android:text="đ"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mahd"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv_vnd1"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Số lượng: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_soluong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mahd"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv3"
+        android:fontFamily="@font/bangers_medium"
+        android:text="50"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv3"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Thành tiền: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_thanhtien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_soluong"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv4"
+        android:fontFamily="@font/bangers_medium"
+        android:text="20000000"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_vnd2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_soluong"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv_thanhtien"
+        android:fontFamily="@font/bangers_medium"
+        android:text="đ"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv4"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Thời gian: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_thoigian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_thanhtien"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/tv5"
+        android:fontFamily="@font/bangers_medium"
+        android:text="01/12/2021"
+        android:textColor="#E53935"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
