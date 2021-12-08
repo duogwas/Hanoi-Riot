@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/iv_bill"
+        android:layout_width="135dp"
+        android:layout_height="165dp"
+        tools:srcCompat="@drawable/ic_lv_hoadon" />
+
+    <TextView
+        android:id="@+id/tv_mahd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/iv_bill"
+        android:fontFamily="@font/bangers_medium"
+        android:gravity="center"
+        android:text="Mã HĐ:"
+        android:textColor="#66BB6A"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_idhd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@id/tv_mahd"
+        android:fontFamily="@font/bangers_medium"
+        android:text="xuat1"
+        android:textColor="#66BB6A"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_ngaytao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mahd"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/iv_bill"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Ngày tạo:"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_datehd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_mahd"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/tv_ngaytao"
+        android:fontFamily="@font/bangers_medium"
+        android:text="20/11/2021"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_chitiet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_ngaytao"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/iv_bill"
+        android:background="@drawable/bg_orange_corner_10"
+        android:gravity="center"
+        android:text="Chi tiết"
+        android:textSize="20sp" />
+
+</RelativeLayout>
