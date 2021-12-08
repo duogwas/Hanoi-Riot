@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ChiTietSanPham">
+
+    <RelativeLayout
+        android:id="@+id/toolfake"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#E1F5FE">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="CHI TIẾT SẢN PHẨM"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/img_btnHome"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_nav_home"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:id="@+id/iv_anhsp"
+            android:layout_width="150dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/logo_index" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_chupanh"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/iv_anhsp"
+            android:background="@drawable/bg_btn_blue_gray_corner_10"
+            android:text="Chụp ảnh" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_chonanh"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_chupanh"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/iv_anhsp"
+            android:background="@drawable/bg_btn_blue_gray_corner_10"
+            android:text="Chọn ảnh từ thư viện" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_ten"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_anhsp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Tên sản phẩm"
+            app:counterMaxLength="15"
+            app:hintTextColor="#e52a25">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tensp_chitiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ln"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl2"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_luu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_blue_gray_corner_10"
+            android:text="Lưu"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_xoa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_blue_gray_corner_10"
+            android:text="Xóa"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_lichsu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ln"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_btn_blue_gray_corner_10"
+        android:text="lịch sử nhập/xuất hàng"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_quaylai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_lichsu"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_btn_blue_gray_corner_10"
+        android:text="quay lại"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+</RelativeLayout>

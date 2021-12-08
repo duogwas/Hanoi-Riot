@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HanoiRiot">
         <activity
+            android:name=".Activity.ChiTietSanPham"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ChiTietDonXuat"
             android:exported="false" />
         <activity

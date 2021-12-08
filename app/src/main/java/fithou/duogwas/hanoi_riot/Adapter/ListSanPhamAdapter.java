@@ -4,6 +4,7 @@ package fithou.duogwas.hanoi_riot.Adapter;//
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -12,9 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.AppCompatButton;
 
 import java.util.ArrayList;
 
+import fithou.duogwas.hanoi_riot.Activity.ChiTietSanPham;
 import fithou.duogwas.hanoi_riot.Class.SanPham;
 import fithou.duogwas.hanoi_riot.R;
 
@@ -47,6 +52,17 @@ public class ListSanPhamAdapter extends ArrayAdapter<SanPham> {
             ImageView imgHinhSp = (ImageView) view.findViewById(R.id.iv_anhgiay);
             Bitmap bitmap = BitmapFactory.decodeByteArray(sanPham.HinhSp, 0, sanPham.HinhSp.length);
             imgHinhSp.setImageBitmap(bitmap);
+
+            AppCompatButton btn_sua = (AppCompatButton) view.findViewById(R.id.btn_sua);
+            btn_sua.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChiTietSanPham.class);
+                    intent.putExtra("id", sanPham.getId());
+                    context.startActivity(intent);
+                    Toast.makeText(context, sanPham.getTenSp(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
         return view;
     }
