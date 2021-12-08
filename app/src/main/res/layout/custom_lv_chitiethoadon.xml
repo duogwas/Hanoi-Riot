@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_anhsp"
+        android:layout_width="135dp"
+        android:layout_height="150dp"
+        tools:srcCompat="@drawable/ic_lv_hoadon" />
+
+    <TextView
+        android:id="@+id/tv_tensp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/iv_anhsp"
+        android:fontFamily="@font/bangers_medium"
+        android:gravity="center"
+        android:text="Tên sản phẩm"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_gia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tensp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/iv_anhsp"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Giá:"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_giachitiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tensp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/tv_gia"
+        android:fontFamily="@font/bangers_medium"
+        android:text="200000"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_vnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tensp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/tv_giachitiet"
+        android:fontFamily="@font/bangers_medium"
+        android:text="đ"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_sl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_gia"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/iv_anhsp"
+        android:fontFamily="@font/bangers_medium"
+        android:text="Số lượng:"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tv_slchitiet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_gia"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@id/tv_gia"
+        android:fontFamily="@font/bangers_medium"
+        android:text="500"
+        android:textColor="#E53935"
+        android:textSize="25sp" />
+
+</RelativeLayout>

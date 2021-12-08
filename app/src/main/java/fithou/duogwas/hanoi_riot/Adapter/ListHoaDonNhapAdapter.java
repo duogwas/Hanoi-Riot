@@ -4,6 +4,7 @@ package fithou.duogwas.hanoi_riot.Adapter;//
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import androidx.appcompat.widget.AppCompatButton;
+
 import java.util.ArrayList;
 
+import fithou.duogwas.hanoi_riot.Activity.ChiTietDonNhap;
 import fithou.duogwas.hanoi_riot.Class.Hoa_Don;
 import fithou.duogwas.hanoi_riot.R;
 
@@ -45,6 +49,16 @@ public class ListHoaDonNhapAdapter extends ArrayAdapter<Hoa_Don> {
             ImageView imgHoadon = (ImageView) view.findViewById(R.id.iv_bill);
             imgHoadon.setImageResource(R.drawable.ic_lv_hoadon);
 
+            AppCompatButton btn_chitiet = (AppCompatButton) view.findViewById(R.id.btn_chitiet);
+            btn_chitiet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ChiTietDonNhap.class);
+                    intent.putExtra("idhd",hoaDon.getIdhd());
+                    intent.putExtra("ngaynhap",hoaDon.getNgay());
+                    context.startActivity(intent);
+                }
+            });
         }
         return view;
     }

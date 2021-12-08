@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HanoiRiot">
         <activity
+            android:name=".Activity.ChiTietDonXuat"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ChiTietDonNhap"
+            android:exported="false" />
+        <activity
             android:name=".Activity.HoaDonXuatHang"
             android:exported="false" />
         <activity

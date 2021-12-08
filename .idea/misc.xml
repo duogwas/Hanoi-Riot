@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_chi_tiet_don_nhap.xml" value="0.25416666666666665" />
+        <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_chi_tiet_don_xuat.xml" value="0.24010416666666667" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_dang_ky.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_dang_nhap.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_ho_tro.xml" value="0.25416666666666665" />
@@ -16,6 +18,7 @@
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_thong_tin_ung_dung.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/activity_xuat_giay.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_dialog_chonloaihoadon.xml" value="0.25416666666666665" />
+        <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_chitiethoadon.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_hoadonnhap.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_hoadonxuat.xml" value="0.25416666666666665" />
         <entry key="..\:/Hanoi-Riot/app/src/main/res/layout/custom_lv_sanpham.xml" value="0.25416666666666665" />
