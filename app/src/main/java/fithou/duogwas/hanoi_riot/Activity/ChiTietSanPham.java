@@ -164,11 +164,23 @@ public class ChiTietSanPham extends AppCompatActivity implements View.OnClickLis
         return bytes;
     }
 
+    public void updateSanPham() {
+        String ten = tensp_chitiet.getText().toString();
+        byte[] anh = ImageViewToByte(iv_anhsp);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("tenSp", ten);
+        contentValues.put("anhSp", anh);
+        hrdbHelper.getWritableDatabase().update("SanPham", contentValues, "idSp = ?", new String[]{id + ""});
+        hrdbHelper.getWritableDatabase().update("ChiTietNhapHang", contentValues, "tenSp = ?", new String[]{ten_chitiet});
+        hrdbHelper.getWritableDatabase().update("ChiTietXuatHang", contentValues, "tenSp = ?", new String[]{ten_chitiet});
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
             case R.id.btn_luu:
+                updateSanPham();
                 intent = new Intent(ChiTietSanPham.this, KhoHang.class);
                 startActivity(intent);
                 break;
