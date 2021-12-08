@@ -226,6 +226,64 @@ public class ChiTietSanPham extends AppCompatActivity implements View.OnClickLis
         dialog.show();
     }
 
+    private void DialogLichSu(int gravity) {
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog_lichsu);
+        dialog.setCanceledOnTouchOutside(false);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttribute = window.getAttributes();
+        windowAttribute.gravity = gravity;
+        window.setAttributes(windowAttribute);
+
+        if (Gravity.CENTER == gravity) {
+            dialog.setCancelable(true);
+        } else {
+            dialog.setCancelable(false);
+        }
+
+        AppCompatButton btn_hdnhap, btn_hdxuat, btn_thoat;
+        btn_hdnhap = dialog.findViewById(R.id.btn_hdnhap);
+        btn_hdxuat = dialog.findViewById(R.id.btn_hdxuat);
+        btn_thoat = dialog.findViewById(R.id.btn_thoat);
+
+        btn_hdnhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tensp_ls = tensp_chitiet.getText().toString();
+                Intent intent = new Intent(ChiTietSanPham.this, LichSuNhapHang.class);
+                intent.putExtra("tensp", tensp_ls);
+                startActivity(intent);
+            }
+        });
+
+        btn_hdxuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tensp_ls = tensp_chitiet.getText().toString();
+                Intent intent = new Intent(ChiTietSanPham.this, LichSuXuatHang.class);
+                intent.putExtra("tensp", tensp_ls);
+                startActivity(intent);
+            }
+        });
+
+        btn_thoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -251,6 +309,7 @@ public class ChiTietSanPham extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.btn_lichsu:
+                DialogLichSu(Gravity.CENTER);
                 break;
 
             default:
