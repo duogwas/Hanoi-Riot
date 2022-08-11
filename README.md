@@ -15,7 +15,4 @@
 
 > **Lưu trữ dữ liệu của app trong SQLite**
 
->**Nếu cần thêm thông tin, bạn có thể liên hệ với tôi**
-- https://www.facebook.com/duogwas
-- https://www.instagram.com/duogwas_/
 
